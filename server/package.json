@@ -1,0 +1,12 @@
+{
+    "name": "mailserver",
+    "version": "1.0.0",
+    "description": "the server for quickMail app",
+    "main": "app.js",
+    "scripts": {
+        "start": "node app.js",
+        "test": "run test"
+    },
+    "author": "OnFireDolphin, 1AnotherOne, markbekhet",
+    "license": "ISC"
+}
