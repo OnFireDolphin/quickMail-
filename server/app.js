@@ -17,7 +17,11 @@ app.get('/test', (req, res) => {
 // Webscraper sends an array of links and I send them to all users
 
 // Client registers with: email and password
+// inserts a user with username, email, password, subjects array, sites array, date, link array
+
+app.post('/createUser', (req, res) => {
+    try {
+    } catch {}
+});
 
 // This method checks if the user has ok email/pass
-
-// inserts a user with username, email, password, subjects array, sites array, date, link array
