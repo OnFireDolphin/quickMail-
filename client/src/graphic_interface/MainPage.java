@@ -9,11 +9,12 @@ public class MainPage {
     }
     public static void createAndShowUi(){
         JFrame frame = new JFrame("news emailing");
-        frame.getContentPane().add(_welcomePage.createAndShowGUI());
+        frame.setSize(500,300);
+        frame.getContentPane().add(_welcomePage);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-        //Display the window.
         frame.pack();
         frame.setVisible(true);
+        //Display the window.
+
     }
 }

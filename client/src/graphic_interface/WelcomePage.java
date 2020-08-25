@@ -1,27 +1,72 @@
 package graphic_interface;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
 
-public class WelcomePage {
+public class WelcomePage extends JPanel implements ActionListener {
     public WelcomePage(){
+        getGUI();
+    }
+    public void getGUI() {
+        //Create and set up the window.
+        GroupLayout gl = new GroupLayout(this);
+        this.setLayout(gl);
+        gl.setAutoCreateContainerGaps(true);
+        gl.setAutoCreateGaps(true);
+        GroupLayout.SequentialGroup hGroup = gl.createSequentialGroup();
+        GroupLayout.SequentialGroup vGroup = gl.createSequentialGroup();
+
+        JLabel labelHello = new JLabel("Hello to our application ");
+        JLabel labelDescription = new JLabel(" with your registration," +
+                "you will be able to receive emails with the latest news");
+        JPanel signInPanel = CreateSection("sign in", "If you have an account you can choose this button", Color.GREEN);
+        JPanel signUpPanel = CreateSection("sign up", "Other press this button", Color.ORANGE);
+
+
+        hGroup.addGroup(gl.createParallelGroup()
+                .addComponent(labelHello)
+                .addComponent(labelDescription)
+                .addComponent(signInPanel)
+                .addComponent(signUpPanel, GroupLayout.Alignment.CENTER)
+        );
+
+        gl.setHorizontalGroup(hGroup);
+        vGroup.addGroup(gl.createParallelGroup(GroupLayout.Alignment.CENTER)
+                .addComponent(labelHello));
+        vGroup.addGroup(gl.createParallelGroup(GroupLayout.Alignment.CENTER)
+                .addComponent(labelDescription));
+        vGroup.addGroup(gl.createParallelGroup(GroupLayout.Alignment.TRAILING)
+                .addComponent(signInPanel));
+        vGroup.addGroup(gl.createParallelGroup(GroupLayout.Alignment.TRAILING)
+                .addComponent(signUpPanel));
+
+        gl.setVerticalGroup(vGroup);
 
     }
-    public static JPanel createAndShowGUI() {
-        //Create and set up the window.
-
+    private JPanel CreateSection(String buttonText, String labelText, Color color){
         JPanel panel = new JPanel();
-        panel.setPreferredSize(new Dimension(300,300));
-
-        //Add the ubiquitous "Hello World" label.
-        JLabel label = new JLabel("Hello World");
-        label.setVisible(true);
         panel.setVisible(true);
-        JButton button = new JButton("OK");
-        panel.add(label,0);
-        panel.add(button,0);
-        // layer.add(button);
-        // layer.add(label);
+        JButton button = new JButton(buttonText);
+        button.addActionListener(this);
+        JLabel label = new JLabel(labelText);
+        panel.add(label);
+        panel.add(button);
+        panel.setBackground(color);
         return panel;
+    }
 
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        String action = e.getActionCommand();
+        if(action.equals("sign in")){
+            System.out.println("signing in");
+        }
+        else if(action.equals("sign up")){
+            System.out.println("signing up");
+        }
     }
 }
