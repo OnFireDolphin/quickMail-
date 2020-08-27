@@ -13,6 +13,7 @@ public class WelcomePage extends JPanel implements ActionListener {
     public WelcomePage(PanelChangerObserver panelChanger){
         this.panelChanger = panelChanger;
         getGUI();
+        PanelListObserver.updateList("welcome", this);
     }
     public void getGUI() {
         //Create and set up the window.
@@ -34,7 +35,7 @@ public class WelcomePage extends JPanel implements ActionListener {
         hGroup.addGroup(gl.createParallelGroup()
                 .addComponent(labelHello)
                 .addComponent(labelDescription)
-                .addComponent(signInPanel)
+                .addComponent(signInPanel, GroupLayout.Alignment.CENTER)
                 .addComponent(signUpPanel, GroupLayout.Alignment.CENTER)
         );
 
@@ -66,6 +67,6 @@ public class WelcomePage extends JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         String action = e.getActionCommand();
-        panelChanger.updatePanel(action.toString());
+        panelChanger.update(action);
     }
 }
