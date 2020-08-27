@@ -8,11 +8,15 @@ import java.util.HashSet;
 import java.util.List;
 
 public class WelcomePage extends JPanel implements ActionListener {
-    public WelcomePage(){
+    Container parent;
+    private PanelChangerObserver panelChanger;
+    public WelcomePage(PanelChangerObserver panelChanger){
+        this.panelChanger = panelChanger;
         getGUI();
     }
     public void getGUI() {
         //Create and set up the window.
+        // this.setSize(1000,1000);
         GroupLayout gl = new GroupLayout(this);
         this.setLayout(gl);
         gl.setAutoCreateContainerGaps(true);
@@ -62,11 +66,6 @@ public class WelcomePage extends JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         String action = e.getActionCommand();
-        if(action.equals("sign in")){
-            System.out.println("signing in");
-        }
-        else if(action.equals("sign up")){
-            System.out.println("signing up");
-        }
+        panelChanger.updatePanel(action.toString());
     }
 }
