@@ -2,13 +2,15 @@ package graphic_interface;
 
 import com.sun.tools.javac.Main;
 
-public class PanelChangerObserver {
+public class PanelChangerObserver implements Observer {
     private String _panelDescription;
     private MainPage _mainPage;
     public PanelChangerObserver(){
         _panelDescription = new String("welcome");
     }
-    public void updatePanel(String newDescription){
+
+    @Override
+    public void update(String newDescription){
         String previousDescription = new String(_panelDescription);
         _panelDescription = newDescription;
         notifyMainPage(previousDescription);
