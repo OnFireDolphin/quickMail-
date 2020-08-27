@@ -5,8 +5,8 @@ public class Main {
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-                MainPage _mainPage = new MainPage();
-                MainPage.createAndShowUi();
+                PanelChangerObserver panelChanger = new PanelChangerObserver();
+                MainPage _mainPage = new MainPage(panelChanger);
             }
         });
     }
