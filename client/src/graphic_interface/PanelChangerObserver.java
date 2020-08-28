@@ -1,12 +1,19 @@
 package graphic_interface;
 
-import com.sun.tools.javac.Main;
+import utils.FileManipulation;
+
+import java.io.FileNotFoundException;
 
 public class PanelChangerObserver implements Observer {
     private String _panelDescription;
     private MainPage _mainPage;
     public PanelChangerObserver(){
-        _panelDescription = new String("welcome");
+        try{
+            FileManipulation.readFile("example.txt");
+        } catch(FileNotFoundException e){
+            System.out.println("File not found");
+        }
+        _panelDescription = "welcome";
     }
 
     @Override

@@ -3,13 +3,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
 
 public class WelcomePage extends JPanel implements ActionListener {
-    Container parent;
-    private PanelChangerObserver panelChanger;
+    final PanelChangerObserver panelChanger;
     public WelcomePage(PanelChangerObserver panelChanger){
         this.panelChanger = panelChanger;
         getGUI();

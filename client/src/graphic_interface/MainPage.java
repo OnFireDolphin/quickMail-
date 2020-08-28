@@ -5,6 +5,7 @@ import java.awt.*;
 
 public class MainPage extends JFrame {
     private PanelChangerObserver _panelChanger;
+    Menu menu;
     static GraphicsDevice device = GraphicsEnvironment
             .getLocalGraphicsEnvironment().getScreenDevices()[0];
 
@@ -12,6 +13,7 @@ public class MainPage extends JFrame {
         super("news emailing");
         _panelChanger = panelChanger;
         _panelChanger.setMainPage(this);
+        menu = new Menu();
         WelcomePage welcomePage = new WelcomePage(panelChanger);
         SignInWindow signInWindow = new SignInWindow();
         createAndShowUi();
