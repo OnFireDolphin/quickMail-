@@ -8,7 +8,8 @@ public class Main {
             @Override
             public void run() {
                 PanelChangerObserver panelChanger = new PanelChangerObserver();
-                MainPage _mainPage = new MainPage(panelChanger);
+                UndoRedo undoRedo = new UndoRedo(panelChanger);
+                MainPage _mainPage = new MainPage(panelChanger, undoRedo);
             }
         });
     }

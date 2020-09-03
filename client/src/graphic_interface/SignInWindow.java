@@ -1,19 +1,19 @@
 
 package graphic_interface;
 
+import constants.Constants;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class SignInWindow extends JPanel implements ActionListener {
-    public SignInWindow(){
-        this.setVisible(true);
-        GetGUI();
-        PanelListObserver.updateList("sign in", this);
+public class SignInWindow extends AbstractPanel implements ActionListener {
+    public SignInWindow(PanelChangerObserver panelChanger, UndoRedo undoRedo){
+        super(panelChanger, Constants.SIGN_IN_PAGE, undoRedo);
     }
-
-    public void GetGUI(){
+    @Override
+    public void getGUI(){
         GroupLayout gl = new GroupLayout(this);
         this.setLayout(gl);
         gl.setAutoCreateContainerGaps(true);
@@ -21,17 +21,25 @@ public class SignInWindow extends JPanel implements ActionListener {
         GroupLayout.SequentialGroup hGroup = gl.createSequentialGroup();
         GroupLayout.SequentialGroup vGroup = gl.createSequentialGroup();
 
+        JButton welcomePage = new JButton("welcome");
+        welcomePage.addActionListener(this);
         JPanel emailPanel = createSection("Enter your email");
         JPanel passwordPanel = createSection("Enter your password");
         JButton signIn = new JButton("Sign in");
-        signIn.setPreferredSize(new Dimension(500,20));
-        hGroup.addGroup(gl.createParallelGroup(GroupLayout.Alignment.CENTER)
-                .addComponent(emailPanel,0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(passwordPanel, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        signIn.setPreferredSize(new Dimension(300,20));
+        hGroup.addGroup(gl.createParallelGroup()
+                .addComponent(welcomePage)
+        );
+        hGroup.addGroup(gl.createParallelGroup(GroupLayout.Alignment.TRAILING)
+                .addComponent(emailPanel,0, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                .addComponent(passwordPanel, 0, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                 .addComponent(signIn, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         gl.setHorizontalGroup(hGroup);
-        vGroup.addGroup(gl.createParallelGroup(GroupLayout.Alignment.CENTER)
+        vGroup.addGroup(gl.createParallelGroup()
+                .addComponent(welcomePage)
+        );
+        vGroup.addGroup(gl.createParallelGroup(GroupLayout.Alignment.BASELINE)
                 .addComponent(emailPanel,0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         vGroup.addGroup(gl.createParallelGroup(GroupLayout.Alignment.TRAILING)
@@ -48,10 +56,10 @@ public class SignInWindow extends JPanel implements ActionListener {
         JLabel label = new JLabel(labelText);
         JTextField textField;
         if(labelText.contains("password")){
-            textField = new JPasswordField(50);
+            textField = new JPasswordField(35);
         }
         else{
-            textField = new JTextField(50);
+            textField = new JTextField(35);
         }
         panel.add(label);
         panel.add(textField);
@@ -60,6 +68,7 @@ public class SignInWindow extends JPanel implements ActionListener {
     }
     @Override
     public void actionPerformed(ActionEvent e) {
-
+        _undoRedo.updateBack(_panelChanger.getPanel());
+        _panelChanger.update(e.getActionCommand());
     }
 }

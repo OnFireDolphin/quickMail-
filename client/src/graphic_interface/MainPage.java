@@ -4,24 +4,25 @@ import javax.swing.*;
 import java.awt.*;
 
 public class MainPage extends JFrame {
-    private PanelChangerObserver _panelChanger;
-    Menu menu;
-    static GraphicsDevice device = GraphicsEnvironment
-            .getLocalGraphicsEnvironment().getScreenDevices()[0];
+    final PanelChangerObserver _panelChanger;
+    final Menu menu;
 
-    public MainPage(PanelChangerObserver panelChanger){
+    public MainPage(PanelChangerObserver panelChanger, UndoRedo undoRedo){
         super("news emailing");
         _panelChanger = panelChanger;
         _panelChanger.setMainPage(this);
-        menu = new Menu();
-        WelcomePage welcomePage = new WelcomePage(panelChanger);
-        SignInWindow signInWindow = new SignInWindow();
+        // undoRedo.updateBack("welcome");
+        menu = new Menu(undoRedo);
+        _panelChanger.setMenu(menu);
+        WelcomePage welcomePage = new WelcomePage(panelChanger, undoRedo);
+        SignInWindow signInWindow = new SignInWindow(panelChanger, undoRedo);
         createAndShowUi();
         changePanel();
     }
     public void createAndShowUi(){
         this.setPreferredSize(new Dimension(500, 500));
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setJMenuBar(menu);
         this.pack();
         this.setLocationRelativeTo(null);
         this.setVisible(true);
@@ -32,11 +33,16 @@ public class MainPage extends JFrame {
         PanelListObserver.getComponent(previousDescription).setVisible(false);
         JComponent component = PanelListObserver.getComponent(_panelChanger.getPanel());
         this.getContentPane().add(component);
+        component.setVisible(true);
+
+
+
     }
     private void changePanel(){
         System.out.println(_panelChanger.getPanel());
         JComponent component = PanelListObserver.getComponent(_panelChanger.getPanel());
         this.getContentPane().add(component);
+        component.setVisible(true);
     }
 
 }

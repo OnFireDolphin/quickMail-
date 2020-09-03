@@ -1,16 +1,16 @@
 package graphic_interface;
+import constants.Constants;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class WelcomePage extends JPanel implements ActionListener {
-    final PanelChangerObserver panelChanger;
-    public WelcomePage(PanelChangerObserver panelChanger){
-        this.panelChanger = panelChanger;
-        getGUI();
-        PanelListObserver.updateList("welcome", this);
+public class WelcomePage extends AbstractPanel implements ActionListener {
+    public WelcomePage(PanelChangerObserver panelChanger, UndoRedo undoRedo){
+        super(panelChanger, Constants.WELCOME_PAGE, undoRedo);
     }
+    @Override
     public void getGUI() {
         //Create and set up the window.
         // this.setSize(1000,1000);
@@ -31,8 +31,8 @@ public class WelcomePage extends JPanel implements ActionListener {
         hGroup.addGroup(gl.createParallelGroup()
                 .addComponent(labelHello)
                 .addComponent(labelDescription)
-                .addComponent(signInPanel, GroupLayout.Alignment.CENTER)
-                .addComponent(signUpPanel, GroupLayout.Alignment.CENTER)
+                .addComponent(signInPanel, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(signUpPanel, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         gl.setHorizontalGroup(hGroup);
@@ -41,9 +41,9 @@ public class WelcomePage extends JPanel implements ActionListener {
         vGroup.addGroup(gl.createParallelGroup(GroupLayout.Alignment.CENTER)
                 .addComponent(labelDescription));
         vGroup.addGroup(gl.createParallelGroup(GroupLayout.Alignment.TRAILING)
-                .addComponent(signInPanel));
+                .addComponent(signInPanel, 0, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE));
         vGroup.addGroup(gl.createParallelGroup(GroupLayout.Alignment.TRAILING)
-                .addComponent(signUpPanel));
+                .addComponent(signUpPanel, 0, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE));
 
         gl.setVerticalGroup(vGroup);
 
@@ -52,6 +52,7 @@ public class WelcomePage extends JPanel implements ActionListener {
         JPanel panel = new JPanel();
         panel.setVisible(true);
         JButton button = new JButton(buttonText);
+        button.setPreferredSize(new Dimension(150,50));
         button.addActionListener(this);
         JLabel label = new JLabel(labelText);
         panel.add(label);
@@ -63,6 +64,8 @@ public class WelcomePage extends JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         String action = e.getActionCommand();
-        panelChanger.update(action);
+        _undoRedo.updateBack(_panelChanger.getPanel());
+        _panelChanger.update(action);
+
     }
 }
