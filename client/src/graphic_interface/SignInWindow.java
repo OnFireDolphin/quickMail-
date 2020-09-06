@@ -2,6 +2,7 @@
 package graphic_interface;
 
 import constants.Constants;
+import database_manager.signInCheck;
 
 import javax.swing.*;
 import java.awt.*;
@@ -9,8 +10,15 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class SignInWindow extends AbstractPanel implements ActionListener {
+    private JTextField password , email;
+    private  JLabel errorMessage;
+
     public SignInWindow(PanelChangerObserver panelChanger, UndoRedo undoRedo){
         super(panelChanger, Constants.SIGN_IN_PAGE, undoRedo);
+        email = new JTextField(37);
+        password = new JPasswordField(35);
+        getGUI();
+
     }
     @Override
     public void getGUI(){
@@ -21,46 +29,38 @@ public class SignInWindow extends AbstractPanel implements ActionListener {
         GroupLayout.SequentialGroup hGroup = gl.createSequentialGroup();
         GroupLayout.SequentialGroup vGroup = gl.createSequentialGroup();
 
-        JButton welcomePage = new JButton("welcome");
+        errorMessage = new JLabel("");
+        errorMessage.setForeground(Color.RED);
+        JButton welcomePage = new JButton(Constants.WELCOME_PAGE);
         welcomePage.addActionListener(this);
-        JPanel emailPanel = createSection("Enter your email");
-        JPanel passwordPanel = createSection("Enter your password");
-        JButton signIn = new JButton("Sign in");
+        JPanel emailPanel = createSection(Constants.ENTER_EMAIL, email);
+        JPanel passwordPanel = createSection(Constants.ENTER_PASSWORD, password);
+        JButton signIn = new JButton(Constants.SIGN_IN_BANNER);
         signIn.setPreferredSize(new Dimension(300,20));
-        hGroup.addGroup(gl.createParallelGroup()
-                .addComponent(welcomePage)
-        );
+        signIn.addActionListener(signIn());
         hGroup.addGroup(gl.createParallelGroup(GroupLayout.Alignment.TRAILING)
                 .addComponent(emailPanel,0, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                 .addComponent(passwordPanel, 0, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                 .addComponent(signIn, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(errorMessage, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         gl.setHorizontalGroup(hGroup);
-        vGroup.addGroup(gl.createParallelGroup()
-                .addComponent(welcomePage)
-        );
-        vGroup.addGroup(gl.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                .addComponent(emailPanel,0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
+        vGroup.addComponent(emailPanel,0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE);
         vGroup.addGroup(gl.createParallelGroup(GroupLayout.Alignment.TRAILING)
                 .addComponent(passwordPanel, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         vGroup.addGroup(gl.createParallelGroup(GroupLayout.Alignment.CENTER)
                 .addComponent(signIn, 0, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
         );
+        vGroup.addGroup(gl.createParallelGroup(GroupLayout.Alignment.CENTER)
+                .addComponent(errorMessage, 0, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+        );
         gl.setVerticalGroup(vGroup);
     }
 
-    private JPanel createSection(String labelText){
+    private JPanel createSection(String labelText, JTextField textField){
         JPanel panel = new JPanel();
         JLabel label = new JLabel(labelText);
-        JTextField textField;
-        if(labelText.contains("password")){
-            textField = new JPasswordField(35);
-        }
-        else{
-            textField = new JTextField(35);
-        }
         panel.add(label);
         panel.add(textField);
         return panel;
@@ -70,5 +70,22 @@ public class SignInWindow extends AbstractPanel implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         _undoRedo.updateBack(_panelChanger.getPanel());
         _panelChanger.update(e.getActionCommand());
+    }
+
+    private ActionListener signIn(){
+        ActionListener signIn = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                boolean value = signInCheck.check(email.getText(), password.getText());
+                if(value){
+                    errorMessage.setText("");
+                    System.out.println("ok");
+                } else{
+                    System.out.println("Your username or your password is incorrect");
+                    errorMessage.setText("Your username or your password is incorrect");
+                }
+            }
+        };
+        return signIn;
     }
 }

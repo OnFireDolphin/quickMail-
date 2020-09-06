@@ -40,9 +40,10 @@ public class MainPage extends JFrame {
     }
     private void changePanel(){
         System.out.println(_panelChanger.getPanel());
-        JComponent component = PanelListObserver.getComponent(_panelChanger.getPanel());
+        AbstractPanel component = PanelListObserver.getComponent(_panelChanger.getPanel());
         this.getContentPane().add(component);
         component.setVisible(true);
+        component.notiffy();
     }
 
 }
