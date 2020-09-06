@@ -5,15 +5,15 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class PanelListObserver{
-    private static  Map<String, JComponent> panelList = null;
+    private static  Map<String, AbstractPanel> panelList = null;
     private PanelListObserver(){}
     public static void updateList(String newDescription, AbstractPanel component){
         if(panelList == null){
-            panelList = new HashMap<String, JComponent>();
+            panelList = new HashMap<String, AbstractPanel>();
         }
         panelList.put(newDescription, component);
     }
-    public static JComponent getComponent(String description){
+    public static AbstractPanel getComponent(String description){
         return panelList.get(description);
     }
 }

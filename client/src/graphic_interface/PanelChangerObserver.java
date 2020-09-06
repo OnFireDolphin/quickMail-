@@ -1,8 +1,11 @@
 package graphic_interface;
 
+import database.BaseModel;
+import database.Users;
 import utils.FileManipulation;
 
 import java.io.FileNotFoundException;
+import java.sql.SQLException;
 
 public class PanelChangerObserver implements Observer {
     private String _panelDescription;
@@ -13,6 +16,17 @@ public class PanelChangerObserver implements Observer {
             FileManipulation.getCurrentClient("example.txt");
         } catch(FileNotFoundException e){
             System.out.println("File not found");
+        }
+        Users users = new Users();
+        try {
+            boolean result = users.isInDatabase();
+            if(result){
+                System.out.println("yes");
+            } else{
+                System.out.println("no");
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
         }
         _panelDescription = "welcome";
     }

@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 public class WelcomePage extends AbstractPanel implements ActionListener {
     public WelcomePage(PanelChangerObserver panelChanger, UndoRedo undoRedo){
         super(panelChanger, Constants.WELCOME_PAGE, undoRedo);
+        getGUI();
     }
     @Override
     public void getGUI() {
@@ -21,11 +22,10 @@ public class WelcomePage extends AbstractPanel implements ActionListener {
         GroupLayout.SequentialGroup hGroup = gl.createSequentialGroup();
         GroupLayout.SequentialGroup vGroup = gl.createSequentialGroup();
 
-        JLabel labelHello = new JLabel("Hello to our application ");
-        JLabel labelDescription = new JLabel(" with your registration," +
-                "you will be able to receive emails with the latest news");
-        JPanel signInPanel = CreateSection("sign in", "If you have an account you can choose this button", Color.GREEN);
-        JPanel signUpPanel = CreateSection("sign up", "Other press this button", Color.ORANGE);
+        JLabel labelHello = new JLabel(Constants.WELCOMING);
+        JLabel labelDescription = new JLabel(Constants.APP_OBJECTIVE);
+        JPanel signInPanel = CreateSection(Constants.SIGN_IN_PAGE, Constants.SIGN_IN_LABEL, Color.GREEN);
+        JPanel signUpPanel = CreateSection(Constants.SIGN_UP_PAGE, Constants.SIGN_UP_LABEL, Color.ORANGE);
 
 
         hGroup.addGroup(gl.createParallelGroup()
