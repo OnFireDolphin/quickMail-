@@ -1,6 +1,5 @@
 .idea
 out
-*.iml
 *.txt
 /classes
 *.jar
