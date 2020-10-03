@@ -4,3 +4,4 @@ out
 *.txt
 /classes
 *.jar
+/out/
