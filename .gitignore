@@ -1,5 +1,4 @@
 .idea
 client/out
-*.txt
 /classes
 *.jar
