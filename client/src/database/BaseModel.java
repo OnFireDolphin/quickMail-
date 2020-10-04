@@ -36,6 +36,8 @@ public class BaseModel {
         }
         return conn;
     }
+
+    public static boolean isConnected() { return conn != null;}
     private void testConnection() throws SQLException {
         if(conn != null){
             ResultSet res = conn.createStatement().executeQuery(test);

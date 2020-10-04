@@ -28,7 +28,9 @@ public class MainPage extends JFrame{
         this.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e){
-                base.closeConnection();
+                if(BaseModel.isConnected()) {
+                    base.closeConnection();
+                }
             }
         });
     }
