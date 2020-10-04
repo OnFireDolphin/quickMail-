@@ -1,6 +1,5 @@
 .idea
-out
+client/out
 *.txt
 /classes
 *.jar
-/out/
