@@ -1,14 +1,21 @@
 package graphic_interface;
 
+import database.BaseModel;
+
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 
-public class MainPage extends JFrame {
+public class MainPage extends JFrame{
     final PanelChangerObserver _panelChanger;
     final Menu menu;
+    private BaseModel base;
 
     public MainPage(PanelChangerObserver panelChanger, UndoRedo undoRedo){
         super("news emailing");
+        base = BaseModel.getBaseModel();
         _panelChanger = panelChanger;
         _panelChanger.setMainPage(this);
         // undoRedo.updateBack("welcome");
@@ -18,6 +25,12 @@ public class MainPage extends JFrame {
         SignInWindow signInWindow = new SignInWindow(panelChanger, undoRedo);
         createAndShowUi();
         changePanel();
+        this.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e){
+                base.closeConnection();
+            }
+        });
     }
     public void createAndShowUi(){
         this.setPreferredSize(new Dimension(500, 500));
@@ -45,5 +58,4 @@ public class MainPage extends JFrame {
         component.setVisible(true);
         component.notiffy();
     }
-
 }

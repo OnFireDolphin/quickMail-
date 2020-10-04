@@ -8,11 +8,9 @@ public class Main {
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-                BaseModel base = BaseModel.getBaseModel();
                 PanelChangerObserver panelChanger = new PanelChangerObserver();
                 UndoRedo undoRedo = new UndoRedo(panelChanger);
                 MainPage _mainPage = new MainPage(panelChanger, undoRedo);
-                base.closeConnection();
             }
         });
     }
