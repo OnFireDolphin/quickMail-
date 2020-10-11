@@ -1,0 +1,3 @@
+[submodule "client/quickMail-client-frontend"]
+	path = client/quickMail-client-frontend
+	url = https://github.com/markbekhet/quickMail-client-frontend.git
